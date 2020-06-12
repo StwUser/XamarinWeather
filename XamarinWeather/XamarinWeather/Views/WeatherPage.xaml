@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:XamarinWeather.ViewModels"
+             mc:Ignorable="d"
+             x:Class="XamarinWeather.Views.WeatherPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--Class Converter-->
+            <local:DateTimeFromUnixConverter x:Key="dateConverter" />
+            <!--Styles For Labels-->
+            <!--Header Label-->
+            <Style x:Key="HeaderLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextDecorations" Value="Underline" />
+                <Setter Property="FontFamily" Value="GoBold" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+            <!--Mini Header Label-->
+            <Style x:Key="MiniHeaderLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextDecorations" Value="None" />
+                <Setter Property="FontFamily" Value="GoMedium" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+            <!--Information Label-->
+            <Style x:Key="InformationLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Green" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextDecorations" Value="None" />
+                <Setter Property="FontFamily" Value="GoMedium" />
+            </Style>
+            <!--InFrameLabel-->
+            <Style x:Key="InFrameLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="DarkGreen" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextDecorations" Value="None" />
+                <Setter Property="FontFamily" Value="GoMedium" />
+            </Style>
+            <!--ImageStyle-->
+            <Style x:Key="ImageStyle" TargetType="Image">
+                <Setter Property="HeightRequest" Value="32" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="Margin" Value="0,6,0,0" />
+            </Style>
+            <!--HeightRequest="32" VerticalOptions="Start" Margin="0,6,0,0"-->
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <!--Background Image-->
+            <Image Source="Background3.png" Aspect="AspectFill" />
+            <!--Content Grid-->
+                <Grid ColumnSpacing="0" RowSpacing="0" Margin="15,10,15,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!--First Row-->
+                    <!-- Station -->
+                    <StackLayout Grid.Column="0" Grid.Row="0">
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Image Source="Station2.png" Style="{StaticResource ImageStyle}" />
+                            <Label Text="Meteostation:" Style="{StaticResource HeaderLabelStyle}" />
+                        </StackLayout>
+                        <Label Text="{Binding Name}" Style="{StaticResource InformationLabelStyle}" />
+                    </StackLayout>
+                    <!--Coordinates Image-->
+                    <StackLayout Grid.Column="1" Grid.Row="0">
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Image Source="TargetLocation2.png" Style="{StaticResource ImageStyle}"/>
+                            <Label Text="Location:" Style="{StaticResource HeaderLabelStyle}"  />
+                        </StackLayout>
+                        <!--Location Coordinates-->
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Label Text="latitude -" Style="{StaticResource MiniHeaderLabelStyle}" />
+                            <Label Text="{Binding Latitude}" Style="{StaticResource InformationLabelStyle}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Label Text="longitude -" Style="{StaticResource MiniHeaderLabelStyle}" />
+                            <Label Text="{Binding Longitude}" Style="{StaticResource InformationLabelStyle}" />
+                        </StackLayout>
+                    </StackLayout>
+                    <!--Second Row-->
+                    <!--Temperature-->
+                    <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Image Source="Thermometer3.png" Style="{StaticResource ImageStyle}" />
+                            <Label Text="Temperature:" Style="{StaticResource HeaderLabelStyle}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Label Text="current: " Style="{StaticResource MiniHeaderLabelStyle}" />
+                            <Label Margin="5,0,0,0" Text="{Binding MainTemp}" Style="{StaticResource InformationLabelStyle}" />
+                            <Label Text="C&#186;" Style="{StaticResource InformationLabelStyle}" />
+                            <Label Text="min: " Margin="5,0,0,0" Style="{StaticResource MiniHeaderLabelStyle}" />
+                            <Label Text="{Binding MainTempMin}" Style="{StaticResource InformationLabelStyle}" />
+                            <Label Text="C&#186;" Style="{StaticResource InformationLabelStyle}" />
+                            <Label Text="max: " Margin="5,0,0,0" Style="{StaticResource MiniHeaderLabelStyle}" />
+                            <Label Text="{Binding MainTempMax}" Style="{StaticResource InformationLabelStyle}" />
+                            <Label Text="C&#186;" Style="{StaticResource InformationLabelStyle}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Label Text="feels like: " Style="{StaticResource MiniHeaderLabelStyle}" />
+                            <Label Text="{Binding MainTempFeelsLike}" Style="{StaticResource InformationLabelStyle}" />
+                            <Label Text="C&#186;" Style="{StaticResource InformationLabelStyle}" />
+                        </StackLayout>
+                    </StackLayout>
+                    <!--Third Row-->
+                    <!--Clodiness-->
+                    <StackLayout Grid.Column="0" Grid.Row="2">
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Image Source="Cloud.png" Style="{StaticResource ImageStyle}" />
+                            <Label Text="Clodiness:" Style="{StaticResource HeaderLabelStyle}" />
+                        </StackLayout>
+                    </StackLayout>
+                    <!--Weather Icon And Description-->
+                    <Frame Grid.Column="1" Grid.Row="2" Margin="10,10,10,0" BackgroundColor="#aaaaaa99" BorderColor="Black" HasShadow="True" CornerRadius="5" >
+                        <Grid ColumnSpacing="0" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="{Binding WeatherIcon}"  Aspect="AspectFill" VerticalOptions="Start" />
+                            <Label Grid.Row="1" Text="{Binding WeatherDescription}" Style="{StaticResource InFrameLabelStyle}" VerticalTextAlignment="End"  HorizontalTextAlignment="Center"/>
+                        </Grid>
+                    </Frame>
+                    <!--Fourth Row-->
+                    <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3">
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Image Source="Info.png" Style="{StaticResource ImageStyle}" />
+                            <Label Text="Info:"  Style="{StaticResource HeaderLabelStyle}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Label Text="pressure: " Style="{StaticResource MiniHeaderLabelStyle}" />
+                            <Label Text="{Binding MainPressure}" Style="{StaticResource InformationLabelStyle}" Margin="5,0,0,0" />
+                            <Label Text="hPa" Style="{StaticResource InformationLabelStyle}" />
+                            <Label Text="humidity: " Style="{StaticResource MiniHeaderLabelStyle}"  Margin="10,0,0,0" />
+                            <Label Text="{Binding MainHumidity}" Style="{StaticResource InformationLabelStyle}" Margin="5,0,0,0" />
+                            <Label Text="%" Style="{StaticResource InformationLabelStyle}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Label Text="winds V: " Style="{StaticResource MiniHeaderLabelStyle}" />
+                            <Label Text="{Binding WindSpeed}" Style="{StaticResource InformationLabelStyle}" Margin="5,0,0,0" />
+                            <Label Text="meter/sec" Style="{StaticResource InformationLabelStyle}" />
+                        </StackLayout>
+                    </StackLayout>
+                    <!--Fifth Row-->
+                    <StackLayout Grid.Column="0" Grid.Row="4">
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Image Source="SunRise.4png" Style="{StaticResource ImageStyle}" />
+                            <Label Text="Sunrise:" Style="{StaticResource HeaderLabelStyle}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Label Text="{Binding SysSunrise, Converter={StaticResource dateConverter}}" Style="{StaticResource InformationLabelStyle}" />
+                            <Label Text="hh:mm" Style="{StaticResource InformationLabelStyle}" />
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="1" Grid.Row="4">
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Image Source="SunSet.png" Style="{StaticResource ImageStyle}" />
+                            <Label Text="Sunset:" Style="{StaticResource HeaderLabelStyle}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Label Text="{Binding SysSunset, Converter={StaticResource dateConverter}}" Style="{StaticResource InformationLabelStyle}" />
+                            <Label Text="hh:mm" Style="{StaticResource InformationLabelStyle}" />
+                        </StackLayout>
+                    </StackLayout>
+
+                </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
